@@ -1,0 +1,31 @@
+{
+    "require": {
+        "slim/slim": "^3.8",
+        "slim/twig-view": "^2.3",
+        "php-di/slim-bridge": "^1.0",
+        "doctrine/orm": "^2.5",
+        "vlucas/phpdotenv": "^2.4",
+        "ramsey/uuid-doctrine": "^1.4",
+        "mailgun/mailgun-php": "^2.3",
+        "php-http/curl-client": "^1.7",
+        "guzzlehttp/psr7": "^1.4",
+        "paragonie/random_compat": "^2.0"
+    },
+    "require-dev" : {
+        "phpunit/phpunit" : "^5.6"
+    },
+    "scripts" : {
+        "gulp": "cd public/assets && npm install && gulp",
+        "post-install-cmd": "@gulp"
+    },
+    "autoload" : {
+        "psr-4" : {
+            "MyApp\\" : "src"
+        }
+    },
+    "autoload-dev" : {
+        "psr-4" : {
+            "MyApp\\Tests\\" : "tests"
+        }
+    }
+}

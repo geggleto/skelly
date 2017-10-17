@@ -1,0 +1,141 @@
+// Global styling for this template
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+body.sticky-footer {
+  margin-bottom: 56px;
+  .content-wrapper {
+    min-height: calc(100vh - 56px - 56px);
+  }
+}
+
+body.fixed-nav {
+  padding-top: 56px;
+}
+
+.content-wrapper {
+  min-height: calc(100vh - 56px);
+  padding-top: 1rem;
+}
+
+// Scroll to top button
+.scroll-to-top {
+  position: fixed;
+  right: 15px;
+  bottom: 3px;
+
+  display: none;
+
+  width: 50px;
+  height: 50px;
+
+  text-align: center;
+
+  color: white;
+  background: fade-out($gray-800, .5);
+
+  line-height: 45px;
+  &:focus,
+  &:hover {
+    color: white;
+  }
+  &:hover {
+    background: $gray-800;
+  }
+  i {
+    font-weight: 800;
+  }
+}
+
+.header-text {
+  color: $white;
+}
+
+/* Style the list */
+ul.breadcrumb {
+  padding: 10px 16px;
+  list-style: none;
+  background-color: #eee;
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+  display: inline;
+  font-size: 18px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.breadcrumb li+li:before {
+  padding: 8px;
+  color: black;
+  content: "/\00a0";
+}
+
+/* Add a color to all links inside the list */
+ul.breadcrumb li a {
+  color: #0275d8;
+  text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.breadcrumb li a:hover {
+  color: #01447e;
+  text-decoration: underline;
+}
+
+.ui-autocomplete-loading {
+  background: white url("/assets/jquery-ui/images/ui-anim_basic_16x16.gif") right center no-repeat;
+}
+
+/**
+ * The CSS shown here will not be introduced in the Quickstart guide, but shows
+ * how you can use CSS to style your Element's container.
+*/
+.StripeElement {
+  background-color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
+.pb-20 {
+  margin-bottom: 20px;
+}
+
+#form-btn {
+  margin-top: 20px;
+}
+
+.pb-10 {
+  margin-bottom: 10px;
+}
+
+.pb-15 {
+  margin-bottom: 15px;
+}
+
+.bg-brand {
+  background-color: $brand-primary;
+}
