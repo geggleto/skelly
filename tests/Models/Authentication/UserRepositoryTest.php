@@ -24,7 +24,8 @@ class UserRepositoryTest extends TestCase
      *
      * @return mixed
      */
-    private function get($containerKey) {
+    private function get($containerKey)
+    {
         return self::$app->getContainer()->get($containerKey);
     }
 

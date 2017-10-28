@@ -21,7 +21,7 @@ class MailGunAdapter implements MailService
     public function __construct($domain, Mailgun $mailgun)
     {
         $this->mailgun = $mailgun;
-        $this->domain = $domain;
+        $this->domain  = $domain;
     }
 
     public function sendHtml($to = '', $from = '', $subject = '', $html = '')
@@ -30,7 +30,7 @@ class MailGunAdapter implements MailService
             'from'    => $from,
             'to'      => $to,
             'subject' => $subject,
-            'html'    => $html
+            'html'    => $html,
         ]);
     }
 
@@ -40,7 +40,7 @@ class MailGunAdapter implements MailService
             'from'    => $from,
             'to'      => $to,
             'subject' => $subject,
-            'text'    => $text
+            'text'    => $text,
         ]);
     }
 

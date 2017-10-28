@@ -2,7 +2,7 @@
 
 {% block content %}
     <h3>Profile</h3>
-    <hr />
+    <hr/>
     <div class="card card-login mx-auto mt-5" id="app">
         <div class="card-header">Edit Profile</div>
         <div class="card-body">
@@ -10,25 +10,30 @@
             <form>
                 <div class="form-group" v-bind:class="{'text-danger': validation.hasFirstNameError }">
                     <label for="exampleInputEmail1">First Name</label>
-                    <input class="form-control" v-model="payload.firstName" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="First Name">
+                    <input class="form-control" v-model="payload.firstName" id="exampleInputEmail1" type="text"
+                           aria-describedby="emailHelp" placeholder="First Name">
                 </div>
                 <div class="form-group" v-bind:class="{'text-danger': validation.hasLastNameError }">
                     <label for="exampleInputEmail1">Last Name</label>
-                    <input class="form-control" v-model="payload.lastName" id="exampleInputEmail1" type="text" aria-describedby="emailHelp" placeholder="Last Name">
+                    <input class="form-control" v-model="payload.lastName" id="exampleInputEmail1" type="text"
+                           aria-describedby="emailHelp" placeholder="Last Name">
                 </div>
                 <div class="form-group" v-bind:class="{'text-danger': validation.hasEmailError }">
                     <label for="exampleInputEmail1">Email address</label>
-                    <input class="form-control" v-model="payload.email" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email">
+                    <input class="form-control" v-model="payload.email" id="exampleInputEmail1" type="email"
+                           aria-describedby="emailHelp" placeholder="Enter email">
                 </div>
                 <div class="form-group" v-bind:class="{'text-danger': validation.hasPasswordError }">
                     <label for="exampleInputPassword1">Password</label>
-                    <input class="form-control" v-model="payload.password" id="exampleInputPassword1" type="password" placeholder="Password">
+                    <input class="form-control" v-model="payload.password" id="exampleInputPassword1" type="password"
+                           placeholder="Password">
                 </div>
                 <div class="form-group" v-bind:class="{'text-danger': validation.hasPasswordError }">
                     <label for="exampleInputPassword1">Password Confirm</label>
-                    <input class="form-control" v-model="payload.password2" id="exampleInputPassword1" type="password" placeholder="Password">
+                    <input class="form-control" v-model="payload.password2" id="exampleInputPassword1" type="password"
+                           placeholder="Password">
                 </div>
-                <br />
+                <br/>
                 <button type="button" class="btn btn-dark btn-block" v-on:click="update">Update</button>
             </form>
         </div>
@@ -36,50 +41,50 @@
 {% endblock %}
 
 {% block customJs %}
-<script type="application/javascript">
-    var vm = new Vue({
-        el: '#app',
-        data: {
-            payload : {
-                id : '{{ user.id }}',
-                firstName : '{{ user.firstName }}',
-                lastName : '{{ user.lastName }}',
-                email : '{{ user.email }}',
-                password : '',
-                password2 : ''
-            },
-            validation : {
-                hasFirstNameError : false,
-                hasLastNameError : false,
-                hasEmailError : false,
-                hasPasswordError : false
+    <script type="application/javascript">
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                payload: {
+                    id: '{{ user.id }}',
+                    firstName: '{{ user.firstName }}',
+                    lastName: '{{ user.lastName }}',
+                    email: '{{ user.email }}',
+                    password: '',
+                    password2: ''
+                },
+                validation: {
+                    hasFirstNameError: false,
+                    hasLastNameError: false,
+                    hasEmailError: false,
+                    hasPasswordError: false
 
+                },
+                message: ''
             },
-            message : ''
-        },
-        delimiters: ["<%", "%>"],
-        methods: {
-            update : function () {
-                if (this.payload.password !== this.payload.password2) {
-                    this.validation.hasPasswordError = true;
-                    return;
+            delimiters: ["<%", "%>"],
+            methods: {
+                update: function () {
+                    if (this.payload.password !== this.payload.password2) {
+                        this.validation.hasPasswordError = true;
+                        return;
+                    }
+
+                    $.ajax({
+                        method: "PUT",
+                        type: "PUT",
+                        url: "/api/profile",
+                        data: this.payload,
+                        success: function (response) {
+                            vm.message = 'Updated profile';
+                        },
+                        error: function () {
+                            vm.message = 'Update to profile failed!'
+                        },
+                        dataType: "json"
+                    });
                 }
-
-                $.ajax({
-                    method : "PUT",
-                    type: "PUT",
-                    url: "/api/profile",
-                    data: this.payload,
-                    success: function (response) {
-                        vm.message = 'Updated profile';
-                    },
-                    error: function () {
-                        vm.message = 'Update to profile failed!'
-                    },
-                    dataType: "json"
-                });
             }
-        }
-    });
-</script>
+        });
+    </script>
 {% endblock %}

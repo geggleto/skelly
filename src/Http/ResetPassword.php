@@ -32,24 +32,23 @@ class ResetPassword
         MailService $mailService)
     {
         $this->userRepository = $userRepository;
-        $this->twig = $twig;
-        $this->mailService = $mailService;
+        $this->twig           = $twig;
+        $this->mailService    = $mailService;
     }
 
     public function __invoke($token, Request $request, Response $response)
     {
         $user = $this->userRepository->findByToken($token);
-        if ($user instanceof User)
-        {
-            $password = $user->regeneratePassword();
-            $data = $user->toArray();
+        if ($user instanceof User) {
+            $password         = $user->regeneratePassword();
+            $data             = $user->toArray();
             $data['password'] = $password;
 
             $html = $this->twig->fetch('email/passwordReset.twig', $data);
 
             $this->mailService->sendHtml(
                 $user->getEmail(),
-                'do-not-reply@'.$this->mailService->getDomain(),
+                'do-not-reply@' . $this->mailService->getDomain(),
                 'Password Reset Successful',
                 $html
             );
@@ -57,8 +56,8 @@ class ResetPassword
             $this->userRepository->storeUser($user);
 
             return $response->withJson([
-                'message' => 'Success'
-            ]);
+                                           'message' => 'Success',
+                                       ]);
         }
 
         return $response->withStatus(404);

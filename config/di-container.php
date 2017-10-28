@@ -1,6 +1,5 @@
 <?php
 
-use function Clue\StreamFilter\fun;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use Mailgun\Mailgun;
@@ -10,13 +9,12 @@ use Psr\Container\ContainerInterface;
 
 return [
     'settings.displayErrorDetails' => true,
-    'doctrine.paths' => [
-        __DIR__.'/../src/Models/Authentication/Entities'
+    'doctrine.paths'               => [
+        __DIR__ . '/../src/Models/Authentication/Entities',
     ],
-    'mailgun.domain' => 'mg.glenneggleton.com',
-    'email.domain' => 'http://admin.local',
-    EntityManager::class => function (ContainerInterface $container)
-    {
+    'mailgun.domain'               => 'mg.glenneggleton.com',
+    'email.domain'                 => 'http://admin.local',
+    EntityManager::class           => function (ContainerInterface $container) {
         $entityManager = null;
 
         $config = Setup::createAnnotationMetadataConfiguration(
@@ -30,19 +28,19 @@ return [
         $config->setAutoGenerateProxyClasses(true);
 
 
-        $file = __DIR__ . '/doctrine.php';
+        $file     = __DIR__ . '/doctrine.php';
         $dbConfig = include $file;
 
         $entityManager = EntityManager::create($dbConfig, $config);
-        $platform = $entityManager->getConnection()->getDatabasePlatform();
+        $platform      = $entityManager->getConnection()->getDatabasePlatform();
         $platform->registerDoctrineTypeMapping('enum', 'string');
 
         return $entityManager;
     },
-    \Slim\Views\Twig::class => function (ContainerInterface $container) {
+    \Slim\Views\Twig::class        => function (ContainerInterface $container) {
         $view = new \Slim\Views\Twig(__DIR__ . '/../templates', [
             'cache' => false,
-            'debug' => true
+            'debug' => true,
         ]);
 
         // Instantiate and add Slim specific extension
@@ -54,17 +52,14 @@ return [
 
         return $view;
     },
-    Mailgun::class => function (ContainerInterface $container)
-    {
+    Mailgun::class                 => function (ContainerInterface $container) {
         return Mailgun::create($_ENV['MAILGUN']);
     },
-    MailGunAdapter::class => function (ContainerInterface $container)
-    {
+    MailGunAdapter::class          => function (ContainerInterface $container) {
         return new MailGunAdapter($container->get('mailgun.domain'), $container->get(Mailgun::class));
     },
-    MailService::class => function (ContainerInterface $container)
-    {
+    MailService::class             => function (ContainerInterface $container) {
         return $container->get(MailGunAdapter::class);
-    }
+    },
 ];
 

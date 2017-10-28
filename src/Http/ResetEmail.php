@@ -33,8 +33,8 @@ class ResetEmail
     )
     {
         $this->userRepository = $userRepository;
-        $this->mailService = $mailService;
-        $this->twig = $twig;
+        $this->mailService    = $mailService;
+        $this->twig           = $twig;
     }
 
     public function __invoke(Request $request, Response $response)
@@ -44,7 +44,7 @@ class ResetEmail
         $user = $this->userRepository->findByEmail($email);
         if ($user instanceof User) {
 
-            $data = $user->toArray();
+            $data          = $user->toArray();
             $data['token'] = $user->generateToken();
             $this->userRepository->storeUser($user);
 
@@ -52,14 +52,14 @@ class ResetEmail
 
             $this->mailService->sendHtml(
                 $user->getEmail(),
-                'do-not-reply@'.$this->mailService->getDomain(),
+                'do-not-reply@' . $this->mailService->getDomain(),
                 'Password Reset Notice',
                 $html
             );
 
             return $response->withJson(
                 [
-                    'message' => 'Success'
+                    'message' => 'Success',
                 ]
             );
         }

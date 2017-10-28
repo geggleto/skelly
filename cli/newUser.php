@@ -11,9 +11,9 @@ if ($argc != 5) {
 
 include_once __DIR__ . '/../vendor/autoload.php';
 
-$app = new App();
+$app       = new App();
 $container = $app->getContainer();
-$repo = $container->get(UserRepository::class);
+$repo      = $container->get(UserRepository::class);
 
 $user = new User(
     $argv[1],

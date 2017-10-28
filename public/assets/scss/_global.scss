@@ -72,7 +72,7 @@ ul.breadcrumb li {
 }
 
 /* Add a slash symbol (/) before/behind each list item */
-ul.breadcrumb li+li:before {
+ul.breadcrumb li + li:before {
   padding: 8px;
   color: black;
   content: "/\00a0";

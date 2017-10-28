@@ -4,9 +4,9 @@
 namespace MyApp\Http;
 
 
-use function session_regenerate_id;
 use Slim\Http\Request;
 use Slim\Http\Response;
+use function session_regenerate_id;
 
 class LogoutUser
 {

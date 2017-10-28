@@ -24,7 +24,7 @@ $app->group('', function () {
     $this->get('/profile', ShowProfile::class);
 
     $this->group('/api', function () {
-       $this->put('/profile', UpdateUser::class);
+        $this->put('/profile', UpdateUser::class);
     });
 })->add(SecurityMiddleware::class);
 
