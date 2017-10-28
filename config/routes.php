@@ -3,6 +3,7 @@
 use MyApp\Http\ProcessLogin;
 use MyApp\Http\ResetEmail;
 use MyApp\Http\ResetPassword;
+use MyApp\Http\ShowDashboard;
 use MyApp\Http\ShowLogin;
 use MyApp\Middleware\SecurityMiddleware;
 
@@ -16,5 +17,5 @@ $app->get('/email/activate/{token}', ResetPassword::class);
 
 // Routes that need users to be logged in should go inside this closure
 $app->group('', function () {
-    $this->get('/dashboard', ShowLogin::class);
+    $this->get('/dashboard', ShowDashboard::class);
 })->add(SecurityMiddleware::class);

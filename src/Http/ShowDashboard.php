@@ -33,6 +33,8 @@ class ShowDashboard
      */
     public function __invoke(Request $request, Response $response)
     {
-        return $this->twig->render($response, 'dashboard.twig');
+        return $this->twig->render($response, 'dashboard.twig', [
+            'user' => isset($_SESSION['user'])? $_SESSION['user']:[]
+        ]);
     }
 }
