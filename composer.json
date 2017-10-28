@@ -16,7 +16,8 @@
     },
     "scripts" : {
         "gulp": "cd public/assets && npm install && gulp",
-        "post-install-cmd": "@gulp"
+        "post-install-cmd": "@gulp",
+        "db" : "vendor/bin/doctrine orm:schema-tool:update --force"
     },
     "autoload" : {
         "psr-4" : {
