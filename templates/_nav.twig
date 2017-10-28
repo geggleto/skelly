@@ -17,6 +17,25 @@
     </div>
 
     <div class="pull-right col-md-2">
-        <span class="header-text">Welcome {{ user.firstName }} {{ user.lastName }}</span>
+        <div class="btn-group pull-right" role="group" aria-label="...">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ user.firstName }}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li >
+                        <a href="/profile" class="nav-link">
+                            <i class="fa fa-fw fa-user"></i>
+                            <span class="nav-link-text">Profile</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+            <a href="/logout" class="btn btn-dark">
+                <i class="fa fa-fw fa-sign-out"></i>
+            </a>
+        </div>
     </div>
 </nav>

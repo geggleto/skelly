@@ -1,10 +1,13 @@
 <?php
 
+use MyApp\Http\LogoutUser;
 use MyApp\Http\ProcessLogin;
 use MyApp\Http\ResetEmail;
 use MyApp\Http\ResetPassword;
 use MyApp\Http\ShowDashboard;
 use MyApp\Http\ShowLogin;
+use MyApp\Http\ShowProfile;
+use MyApp\Http\UpdateUser;
 use MyApp\Middleware\SecurityMiddleware;
 
 //Unsecured Routes should go outside the closure
@@ -18,4 +21,11 @@ $app->get('/email/activate/{token}', ResetPassword::class);
 // Routes that need users to be logged in should go inside this closure
 $app->group('', function () {
     $this->get('/dashboard', ShowDashboard::class);
+    $this->get('/profile', ShowProfile::class);
+
+    $this->group('/api', function () {
+       $this->put('/profile', UpdateUser::class);
+    });
 })->add(SecurityMiddleware::class);
+
+$app->get('/logout', LogoutUser::class);

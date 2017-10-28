@@ -14,6 +14,7 @@ use Doctrine\ORM\TransactionRequiredException;
 use MyApp\Core\RepositoryInterface;
 use MyApp\Models\Authentication\Entities\User;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class UserRepository implements RepositoryInterface
 {
@@ -41,7 +42,7 @@ class UserRepository implements RepositoryInterface
      * @throws OptimisticLockException
      * @throws TransactionRequiredException
      */
-    public function find(Uuid $uuid)
+    public function find(UuidInterface $uuid)
     {
         return $this->entityManager->find(User::class, $uuid->toString());
     }
@@ -52,7 +53,7 @@ class UserRepository implements RepositoryInterface
      * @return bool|\Doctrine\Common\Proxy\Proxy|null|object|User
      * @throws ORMException
      */
-    public function getReferenceFor(Uuid $uuid)
+    public function getReferenceFor(UuidInterface $uuid)
     {
         return $this->entityManager->getReference(User::class, $uuid->toString());
     }
