@@ -11,10 +11,12 @@ use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\ORMInvalidArgumentException;
 use Doctrine\ORM\TransactionRequiredException;
+use Exception;
 use MyApp\Core\RepositoryInterface;
 use MyApp\Models\Authentication\Entities\User;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use function var_dump;
 
 class UserRepository implements RepositoryInterface
 {
@@ -110,6 +112,52 @@ class UserRepository implements RepositoryInterface
             return null;
         } catch (NoResultException $exception) {
             return null;
+        }
+    }
+
+    /**
+     * @param int $page
+     * @param int $limit
+     *
+     * @return User[]
+     */
+    public function getUserList($page = 0, $limit = 20)
+    {
+        try {
+            return $this->entityManager
+                ->createQueryBuilder()
+                ->select('u')
+                ->from(User::class, 'u')
+                ->orderBy('u.email', 'desc')
+                ->setMaxResults($limit)
+                ->setFirstResult($page*$limit)
+                ->getQuery()
+                ->getResult();
+
+        } catch (Exception $exception) {
+            return [];
+        }
+    }
+
+    /**
+     * @param int $limit
+     *
+     * @return int
+     */
+    public function getMaxPage($limit = 20)
+    {
+        try {
+            $count = $this->entityManager
+                ->createQueryBuilder()
+                ->select('count(*) as `count')
+                ->from(User::class, 'u')
+                ->getQuery()
+                ->getSingleResult();
+
+            return (int)($count/$limit);
+
+        } catch (Exception $exception) {
+            return 0;
         }
     }
 }

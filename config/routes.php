@@ -8,6 +8,7 @@ use MyApp\Http\ShowDashboard;
 use MyApp\Http\ShowLogin;
 use MyApp\Http\ShowProfile;
 use MyApp\Http\UpdateUser;
+use MyApp\Http\User\ShowUserList;
 use MyApp\Middleware\SecurityMiddleware;
 
 //Unsecured Routes should go outside the closure
@@ -22,6 +23,9 @@ $app->get('/email/activate/{token}', ResetPassword::class);
 $app->group('', function () {
     $this->get('/dashboard', ShowDashboard::class);
     $this->get('/profile', ShowProfile::class);
+    $this->get('/users', ShowUserList::class);
+    $this->get('/user/new', '');
+    $this->get('/user/edit/{uuid}', '');
 
     $this->group('/api', function () {
         $this->put('/profile', UpdateUser::class);
